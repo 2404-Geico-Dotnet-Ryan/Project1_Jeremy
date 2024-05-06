@@ -1,0 +1,9 @@
+I'm not very creative, so I'll just do the banking app.  
+
+Login(Logout) (while loop for password entry/tries)
+Menu (switch case under Methods lesson)
+    View funds
+    Deposit  
+    Withdrawal 
+
+
