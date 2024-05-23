@@ -7,3 +7,15 @@ Menu (switch case under Methods lesson)
     Withdrawal 
 
 
+Need:
+UI / Main Menu
+    - Login/Create Account
+    - Main Menu:
+        - View funds
+        - Deposit
+        - Withdrawal
+
+User Repo - AccountHolder name, AccountNumber
+Account Repo - AccountNumber, Balance
+
+
