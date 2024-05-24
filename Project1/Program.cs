@@ -23,25 +23,41 @@ class Program
         AccountRepo ar = new(connectionString);
         accountService = new(ar);
 
+        Thread.Sleep(1000); //just gives a pause in milliseconds before the next action
+
         LoginMenu();
     }
 
     private static void LoginMenu()
     {
-        System.Console.WriteLine("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+        Console.ForegroundColor = ConsoleColor.Green;
+        System.Console.WriteLine(@"___________________________________");
+        System.Console.WriteLine(@"|#######====================#######|");
+        System.Console.WriteLine(@"|#(1)*UNITED STATES OF AMERICA*(1)#|");
+        System.Console.WriteLine(@"|#**          /===\   ********  **#|");
+        System.Console.WriteLine(@"|*# {G}      | ( ) |             #*|");
+        System.Console.WriteLine(@"|#*  ******  | /v\ |    O N E    *#|");
+        System.Console.WriteLine(@"|#(1)         \===/            (1)#|");
+        System.Console.WriteLine(@"|##=========ONE DOLLAR===========##|");
+        System.Console.WriteLine(@"------------------------------------");
+        Console.ResetColor();
+        System.Console.WriteLine(@"       Welcome to JT Bank!");
         System.Console.WriteLine("");
-        System.Console.WriteLine("Welcome to the JT Bank App!");
         bool keepGoing = true;
         while (keepGoing)
         {
             System.Console.WriteLine("Please Pick One of the Below Options:");
             System.Console.WriteLine("===============JT BANK===============");
+            Console.ForegroundColor = ConsoleColor.Blue;
             System.Console.WriteLine("[1] Login");
             System.Console.WriteLine("[2] Create Account");
             System.Console.WriteLine("[0] Quit");
+            Console.ResetColor();
             System.Console.WriteLine("=====================================");
 
+            Console.ForegroundColor = ConsoleColor.Cyan;
             int input = int.Parse(Console.ReadLine() ?? "0");
+            Console.ResetColor();
             input = ValidateCmd(input, 2);
             keepGoing = DecideLoginOption(input);
         }
@@ -51,22 +67,29 @@ class Program
 
     private static void MainMenu()
     {
+        //Console.Clear();  //visually "clears" the console from any unrelated messages, warnings, etc. 
         // Main Menu - bank title, view balance, make deposit, make withdrawal, quit
         System.Console.WriteLine("Welcome to the JT Bank App!");
         bool keepGoing = true;
         while (keepGoing)
         {
+            Console.ForegroundColor = ConsoleColor.Green;
             System.Console.WriteLine("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+            Console.ResetColor();
             System.Console.WriteLine("");
+            Console.ForegroundColor = ConsoleColor.DarkBlue;
             System.Console.WriteLine("Please Pick One of the Below Options:");
             System.Console.WriteLine("===============JT BANK===============");
             System.Console.WriteLine("[1] View Available Funds");
             System.Console.WriteLine("[2] Make a Deposit");
             System.Console.WriteLine("[3] Withdrawl Funds");
             System.Console.WriteLine("[0] Logout");
+            Console.ResetColor();
             System.Console.WriteLine("=====================================");
 
+            Console.ForegroundColor = ConsoleColor.Cyan;
             int input = int.Parse(Console.ReadLine() ?? "0");
+            Console.ResetColor();
 
             input = ValidateCmd(input, 3); //user input validation
 
@@ -132,17 +155,23 @@ class Program
         while (currentUser == null)
         {
             System.Console.WriteLine("Please Enter Your AccountHolder name: ");
+            Console.ForegroundColor = ConsoleColor.Cyan;
             string accountHolder = Console.ReadLine() ?? "";
+            Console.ResetColor();
 
             System.Console.WriteLine("Please Enter Your Password: ");
+            Console.ForegroundColor = ConsoleColor.Cyan;
             string password = Console.ReadLine() ?? "";
+            Console.ResetColor();
 
             //Setting the currentUser variable signifies Logging in. If Login() fails it will remain null.
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
             currentUser = userService.Login(accountHolder, password);
 #pragma warning restore CS8602 // Dereference of a possibly null reference.
             if (currentUser == null)
-                System.Console.WriteLine("Login Failed. Please Try Again.");
+                Console.ForegroundColor = ConsoleColor.Red;
+            System.Console.WriteLine("Login Failed. Please Try Again.");
+            Console.ResetColor();
         }
 
         //Now that they are logged in -> send them to Main Menu.
@@ -154,11 +183,15 @@ class Program
     private static void Register()
     {
         System.Console.WriteLine("Please Enter a New AccountHolder name: ");
+        Console.ForegroundColor = ConsoleColor.Cyan;
         string accountHolder = Console.ReadLine() ?? "";
+        Console.ResetColor();
 
 
         System.Console.WriteLine("Please Enter a New Password: ");
+        Console.ForegroundColor = ConsoleColor.Cyan;
         string password = Console.ReadLine() ?? "";
+        Console.ResetColor();
 
 
         //Lets not set an ID and assume their Role to be 'user'
@@ -173,7 +206,9 @@ class Program
         }
         else
         {
+            Console.ForegroundColor = ConsoleColor.Red;
             System.Console.WriteLine("Registration Failed! Please Try Again!");
+            Console.ResetColor();
         }
     }
 
@@ -194,8 +229,10 @@ class Program
         Account account = PromptUserForAccount();
 #pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
 
+        Console.ForegroundColor = ConsoleColor.Cyan;
         System.Console.WriteLine("Please enter amount to Deposit");
         decimal amount = decimal.Parse(Console.ReadLine() ?? "0");
+        Console.ResetColor();
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
 #pragma warning disable CS8604 // Possible null reference argument.
         accountService.MakeDeposit(account, amount);
@@ -213,7 +250,9 @@ class Program
 #pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
 
         System.Console.WriteLine("Please enter amount of Withdrawal");
+        Console.ForegroundColor = ConsoleColor.Cyan;
         decimal amount = decimal.Parse(Console.ReadLine() ?? "0");
+        Console.ResetColor();
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
 #pragma warning disable CS8604 // Possible null reference argument.
         accountService.MakeWithdrawal(account, amount);
@@ -229,7 +268,9 @@ class Program
         while (cmd < 0 || cmd > maxOption)
         {
             System.Console.WriteLine("Invalid Command - Please Enter a command 1-" + maxOption + "; or 0 to Quit");
+            Console.ForegroundColor = ConsoleColor.Cyan;
             cmd = int.Parse(Console.ReadLine() ?? "0");
+            Console.ResetColor();
         }
 
         return cmd;
@@ -242,7 +283,9 @@ class Program
         {
             System.Console.WriteLine("Lets find your Account.");
             System.Console.WriteLine("Please enter an AccountNumber.");
+            Console.ForegroundColor = ConsoleColor.Cyan;
             int accountNumber = int.Parse(Console.ReadLine() ?? "0");
+            Console.ResetColor();
             if (accountNumber == 0) return null;
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
             retrievedAccount = accountService.GetAccount(accountNumber);
